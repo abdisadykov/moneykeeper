@@ -1,0 +1,11 @@
+version: '3'
+services:
+  db:
+    image: postgres:15
+    ports:
+      - 5431:5432
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 12345
+#    volumes:
+#      - ./:/app
