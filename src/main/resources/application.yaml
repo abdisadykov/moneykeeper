@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5431/postgres?currentSchema=moneykeeper
+    url: jdbc:postgresql://localhost:5431/postgres?currentSchema=basqaru
     username: postgres
     password: 12345
   jpa:
