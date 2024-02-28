@@ -24,7 +24,7 @@ public class Account {
     @Column(name = "balance", nullable = false)
     private BigDecimal balance;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

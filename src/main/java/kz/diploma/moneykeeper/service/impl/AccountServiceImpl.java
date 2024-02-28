@@ -1,6 +1,5 @@
 package kz.diploma.moneykeeper.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import kz.diploma.moneykeeper.domain.entity.Account;
 import kz.diploma.moneykeeper.domain.entity.User;
@@ -11,7 +10,6 @@ import kz.diploma.moneykeeper.model.AccountRequestDto;
 import kz.diploma.moneykeeper.model.AccountRequestWithUserDto;
 import kz.diploma.moneykeeper.model.AccountResponseDto;
 import kz.diploma.moneykeeper.service.IAccountService;
-import kz.diploma.moneykeeper.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -44,7 +42,7 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public AccountResponseDto getAccountById(Long id) {
         Account account = accountRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(ACCOUNT_NOT_FOUND));
+                .orElseThrow(() -> new ElementNotFoundException(ACCOUNT_NOT_FOUND));
         return fromEntityToResponseDto(account);
     }
 
@@ -66,7 +64,7 @@ public class AccountServiceImpl implements IAccountService {
     @Transactional
     public AccountResponseDto patchAccount(Long id, AccountRequestWithUserDto requestDto) {
         Account account = accountRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(ACCOUNT_NOT_FOUND));
+                .orElseThrow(() -> new ElementNotFoundException(ACCOUNT_NOT_FOUND));
 
         BeanUtils.copyProperties(requestDto, account, getNullPropertyNames(requestDto));
         accountRepository.save(account);
@@ -77,7 +75,7 @@ public class AccountServiceImpl implements IAccountService {
     @Transactional
     public void deleteAccountById(Long id) {
         if (!accountRepository.existsById(id)) {
-            throw new EntityNotFoundException(ACCOUNT_NOT_FOUND);
+            throw new ElementNotFoundException(ACCOUNT_NOT_FOUND);
         }
         accountRepository.deleteById(id);
     }

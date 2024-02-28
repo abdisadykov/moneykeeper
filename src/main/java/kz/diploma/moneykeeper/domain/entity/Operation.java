@@ -33,7 +33,7 @@ public class Operation {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "category_id")
     private Category category;
 

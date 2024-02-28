@@ -27,4 +27,12 @@ public class GlobalExceptionHandler {
         return error;
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IncorrectOperationTypeException.class)
+    public Map<String, String> incorrectOperationType(IncorrectOperationTypeException exception) {
+        Map<String, String> error = new HashMap<>();
+        error.put("Error", exception.getMessage());
+        return error;
+    }
+
 }

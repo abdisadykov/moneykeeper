@@ -51,5 +51,4 @@ public class UserController {
         userService.deleteByEmail(email);
         return ResponseEntity.noContent().build();
     }
-
 }

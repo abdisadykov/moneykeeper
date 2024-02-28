@@ -60,14 +60,14 @@ public class CategoryServiceImpl implements ICategoryService {
         categoryRepository.deleteById(id);
     }
 
-    private CategoryResponseDto fromEntityToResponseDto(Category category) {
+    public CategoryResponseDto fromEntityToResponseDto(Category category) {
         return CategoryResponseDto.builder()
                 .id(category.getCategoryId())
                 .title(category.getTitle())
                 .build();
     }
 
-    private Category fromRequestDtoToEntity(CategoryRequestDto dto) {
+    public Category fromRequestDtoToEntity(CategoryRequestDto dto) {
         return Category.builder()
                 .title(dto.getTitle())
                 .build();
