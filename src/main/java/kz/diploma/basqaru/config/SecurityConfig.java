@@ -40,13 +40,12 @@ public class SecurityConfig {
     @Bean
     @SneakyThrows
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
-        http.csrf().and().cors().disable()
+        http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("admin")
-                .requestMatchers(SECURED_URLs).hasAnyAuthority("admin", "user")
                 .requestMatchers(UNSECURED_URLs).permitAll()
-                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/operations/**", "/accounts/**", "/categories/**").permitAll()
+                .requestMatchers(SECURED_URLs).hasAnyAuthority("admin", "user")
+                .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("admin")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

@@ -20,6 +20,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Service;
 
 import java.beans.PropertyDescriptor;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -106,9 +107,17 @@ public class OperationServiceImpl implements IOperationService {
     @Override
     @Transactional
     public void deleteOperationById(Long id) {
-        if (!operationRepository.existsById(id)) {
-            throw new ElementNotFoundException(OPERATION_NOT_FOUND);
+        Operation operation = operationRepository.findById(id).orElseThrow(()-> new ElementNotFoundException(OPERATION_NOT_FOUND));
+        BigDecimal balance = operation.getAccount().getBalance();
+        if (operation.getType() == OperationType.INCOME) {
+            balance = balance.subtract(operation.getAmount());
+        } else if(operation.getType() == OperationType.EXPENSE) {
+            balance = balance.add(operation.getAmount());
+        } else {
+            throw new IncorrectOperationTypeException("Incorrect operation type");
         }
+        operation.getAccount().setBalance(balance);
+        accountRepository.save(operation.getAccount());
         operationRepository.deleteById(id);
     }
 

@@ -28,7 +28,7 @@ CREATE TABLE basqaru.categories
 CREATE TABLE basqaru.operations
 (
     operation_id SERIAL PRIMARY KEY,
-    type         VARCHAR(255) NOT NULL,
+    type         SMALLINT NOT NULL,
     amount       DECIMAL,
     created_time TIMESTAMP,
     account_id   INT,

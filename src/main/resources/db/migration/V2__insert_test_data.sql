@@ -17,6 +17,6 @@ VALUES ('Food'),
 
 -- Вставка тестовых данных в таблицу operation
 INSERT INTO basqaru.operations (type, amount, account_id, category_id, created_time)
-VALUES ('INCOME', 2000.00, 1, 1, NOW()),
-       ('EXPENSE', 50.00, 2, 2, NOW()),
-       ('EXPENSE', 100.00, 1, 3, NOW());
+VALUES (0, 2000.00, 1, 1, NOW()),
+       (1, 50.00, 2, 2, NOW()),
+       (1, 100.00, 1, 3, NOW());
